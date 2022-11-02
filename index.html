@@ -12,10 +12,41 @@
     <div class="page-content">
         <h1 class="header">Project-Library</h1>  
         <div class="main-column">
-            
+            <h3 class="title-heading">TITLE</h3>
+            <h3 class="author-heading">AUTHOR</h3>
+            <h3 class="read-status">READ</h3>
+            <h3 class="edit-column"></h3>
+            <div class="the-planet-book title">The Planet Book</div>
+            <div class="the-planet-book author">Lonely Planet</div>
+            <div class="the-planet-book read-status">
+                <img src="images/checkmark.png"
+                alt="checkmark icon">
+            </div>
+            <div class="the-planet-book edit">
+                <button class="edit-books">Edit</button>
+                <button class="delete-book">Remove</button>
+            </div>
         </div>
-        <div class="new-book-bar"></div>
-        <div class="edit-book-bar"></div>
+        <div class="new-book-bar">
+            <form action="" method="post">
+                <div class="form-column">
+                    <label for="title">Book title*</label>
+                    <input type="text" id="title" name="title" required>    
+                </div>
+                <div class="form-column">
+                    <label for="author">Author*</label>
+                    <input type="text" id="author" name="author" required>    
+                </div>
+                <div class="form-column">
+                    <label for="status">Status</label>
+                    <select name="status">
+                        <option value="read">Read</option>
+                        <option value="unread" selected>Unread</option>
+                    </select>    
+                </div>
+                <button type="button" class="add-new-book">Add book</button>        
+            </form>
+        </div>
     </div>
 </body>
 </html>
