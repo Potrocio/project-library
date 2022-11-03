@@ -34,7 +34,8 @@ body {
 .main-column {
     grid-area: 2/1/2/2;
     display: grid;
-    grid-template: repeat(5,1fr)/ 1fr 1fr .5fr 1fr;
+    grid-template: repeat(auto-fit,minmax(50px, 50px))/ 1fr 1fr .5fr 1fr;
+    grid-auto-rows: 50px;
     margin-left: 50px;
     margin-right: 50px;
     overflow: scroll;
@@ -93,7 +94,7 @@ div.edit {
     align-items: center;
 }
 
-.edit-books {
+.edit-book {
     margin-left: 10px;
     background-color: rgb(12, 33, 61);
     border-radius: 10px;

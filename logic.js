@@ -33,7 +33,6 @@ function titleToElementClass (title) {
     return newTitle;
 }
 
-titleToElementClass('the Planet Book')
 function createInputDiv(book) {
     const content = document.createElement('div');
     content.classList.add(book.className);
@@ -41,15 +40,44 @@ function createInputDiv(book) {
     htmlBooks.appendChild(content);
 }
 
-function createAuthorDiv(book){
+function createAuthorDiv(book) {
     const content = document.createElement('div');
     content.classList.add(book.className);
     content.textContent = book.author;
     htmlBooks.appendChild(content);
 }
 
-// function createStatusDiv()
-// function createButtonDiv()
+function createStatusDiv(book) {
+    const content = document.createElement('div');
+    const contentImage = document.createElement('img');
+    content.classList.add(book.className);
+    content.appendChild(contentImage);
+    htmlBooks.appendChild(content);
+    if(book.read === 'read') {
+        contentImage.setAttribute('src', "images/checkmark.png");
+        contentImage.setAttribute('alt', "checkmark icon");
+    } else {
+        contentImage.setAttribute('src', "images/x-mark.png"); 
+        contentImage.setAttribute('alt', "marked x icon");
+    }
+}
+
+function createButtonDiv(book) {
+    const content = document.createElement('div');
+    const editBook = document.createElement('button');
+    const deleteBook = document.createElement('button');
+
+    content.classList.add(book.className);
+    content.classList.add('edit');
+    editBook.classList.add('edit-book');
+    editBook.textContent = 'Edit';
+
+    deleteBook.classList.add('delete-book');
+    deleteBook.textContent = 'Remove';
+    content.appendChild(editBook);
+    content.appendChild(deleteBook);
+    htmlBooks.appendChild(content);
+}
 
 addBookButton.addEventListener('click', () => {
     if (titleInput.value.length !== 0 && authorInput.value.length !==0) {
@@ -58,6 +86,8 @@ addBookButton.addEventListener('click', () => {
         myLibrary.push(newBook);
         createInputDiv(newBook);
         createAuthorDiv(newBook);
+        createStatusDiv(newBook);
+        createButtonDiv(newBook);
     };
 })
 
