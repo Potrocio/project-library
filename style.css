@@ -108,12 +108,14 @@ button:hover {
     color: black;
 }
 
-.new-book-bar{}
-
 form {
     display: flex;
     margin-top: 30px;
     margin-left: 100px;
+}
+
+input:focus {
+    outline: none;
 }
 
 label {
