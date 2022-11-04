@@ -1,5 +1,6 @@
 const myLibrary = [];
 let bookToBeEdited = '';
+let currentBookObject = '';
 
 function Book(title,author,read) {
     this.title = title;
@@ -116,7 +117,7 @@ function updateStatusDiv(statusDiv, statusDivContent) {
     statusDiv.removeChild(statusDivContent)
     const contentImage = document.createElement('img');
     statusDiv.appendChild(contentImage);
-    if(bookToBeEdited.read === 'read') {  
+    if(currentBookObject.read === 'read') {  
         contentImage.setAttribute('src', "images/checkmark.png");
         contentImage.setAttribute('alt', "checkmark icon");
     } else {
@@ -151,10 +152,21 @@ addBookButton.addEventListener('click', (e) => {
         let authorDivContent = bookToBeEdited.parentElement.previousElementSibling.previousElementSibling;
         let statusDiv = bookToBeEdited.parentElement.previousElementSibling;
         let statusDivContent = bookToBeEdited.parentElement.previousElementSibling.firstElementChild;
-        bookToBeEdited.read = readBookInput.value;
+        currentBookObject = myLibrary.find((book)=> book.className === bookToBeEdited.parentElement.previousElementSibling.className);
+        bookToBeEdited.parentElement.setAttribute('class', currentBookObject.className+ ' edit')
+        bookToBeEdited.parentElement.previousElementSibling.setAttribute('class', currentBookObject.className)
+        bookToBeEdited.parentElement.previousElementSibling.previousElementSibling.setAttribute('class', currentBookObject.className)
+        bookToBeEdited.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.setAttribute('class', currentBookObject.className)
+
+        currentBookObject.read = readBookInput.value;
+        currentBookObject.title = titleInput.value;
+        currentBookObject.author = authorInput.value;
+        currentBookObject.className = titleToElementClass(currentBookObject.title);
+
         updateStatusDiv(statusDiv,statusDivContent);
         titleDivContent.textContent = titleInput.value;
         authorDivContent.textContent = authorInput.value;
+        
         addBookButton.setAttribute('style','background-color: rgb(63, 83, 37);');
         addBookButton.textContent = 'Add book';
         titleInput.setAttribute('style', 'background-color: white;');
@@ -169,12 +181,12 @@ bookTest.className = 'title-example';
 myLibrary.push(bookTest);
 
 myLibrary.forEach((myLibrary) => {
+    currentBookObject = bookTest;
     createInputDiv(myLibrary);
     createAuthorDiv(myLibrary);
     createStatusDiv(myLibrary);
     createButtonDiv(myLibrary);
 });
 
-//write function that edits/deletes library books in myLibrary along with the dom tree with myLibrary.find((item) => item === blah)
-
+// fix element class change when editing
 
