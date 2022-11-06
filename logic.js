@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 let bookToBeEdited = '';
 let currentBookObject = '';
 
@@ -74,7 +74,7 @@ function deleteBooks(book) {
 function createButtonDiv(book) {
     const content = document.createElement('div');
     const editBook = document.createElement('button');
-    const deleteBook = document.createElement('button');
+    let deleteBook = document.createElement('button');
 
     content.classList.add(book.className);
     content.classList.add('edit');
@@ -93,6 +93,12 @@ function createButtonDiv(book) {
     deleteBook.classList.add('delete-book');
     deleteBook.textContent = 'Remove';
     deleteBook.addEventListener('click', () => {
+        currentBookObject = myLibrary.find((book)=> book.className === deleteBook.parentElement.previousElementSibling.className);
+        myLibrary = myLibrary.filter((book) => {
+            if (book !== currentBookObject) {
+                return true;
+            }});
+
         if (addBookButton.textContent === 'Save') {
             addBookButton.setAttribute('style','background-color: rgb(63, 83, 37);');
             addBookButton.textContent = 'Add book';
@@ -153,15 +159,16 @@ addBookButton.addEventListener('click', (e) => {
         let statusDiv = bookToBeEdited.parentElement.previousElementSibling;
         let statusDivContent = bookToBeEdited.parentElement.previousElementSibling.firstElementChild;
         currentBookObject = myLibrary.find((book)=> book.className === bookToBeEdited.parentElement.previousElementSibling.className);
-        bookToBeEdited.parentElement.setAttribute('class', currentBookObject.className+ ' edit')
-        bookToBeEdited.parentElement.previousElementSibling.setAttribute('class', currentBookObject.className)
-        bookToBeEdited.parentElement.previousElementSibling.previousElementSibling.setAttribute('class', currentBookObject.className)
-        bookToBeEdited.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.setAttribute('class', currentBookObject.className)
 
         currentBookObject.read = readBookInput.value;
         currentBookObject.title = titleInput.value;
         currentBookObject.author = authorInput.value;
         currentBookObject.className = titleToElementClass(currentBookObject.title);
+
+        bookToBeEdited.parentElement.className = currentBookObject.className+ ' edit';
+        bookToBeEdited.parentElement.previousElementSibling.className = currentBookObject.className;
+        bookToBeEdited.parentElement.previousElementSibling.previousElementSibling.className = currentBookObject.className;
+        bookToBeEdited.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.className = currentBookObject.className;
 
         updateStatusDiv(statusDiv,statusDivContent);
         titleDivContent.textContent = titleInput.value;
@@ -187,6 +194,3 @@ myLibrary.forEach((myLibrary) => {
     createStatusDiv(myLibrary);
     createButtonDiv(myLibrary);
 });
-
-// fix element class change when editing
-
